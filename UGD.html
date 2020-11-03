@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UGD 1</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>Tebak Angka {{ ditebak.angka }}</h2>
+        <br>
+        <h2>Masukkan Angka:</h2>
+        <div id="guesser">
+            <input v-model="tebakan.angka" placeholder="tebak...">
+            <button @click="bandingkan">Coba Tebak</button>
+        </div>
+        <div v-if="fail">
+            <p>Masih Salah!</p> <br>
+            <button @click="ulangLagi">Ulang Lagi</button> <br>
+            <p>Kesempatanmu tinggal {{ ditebak.total }} </p>
+        </div>
+        <div v-else-if="won">
+            <p>BETUL.</p>
+            <br>
+            <p v-show="simpanan">Angka yang ditebak adalah {{ ditebak.angka }}</h2>
+        </div>
+        <div v-else-if="lose">
+            <p>Anda Kalah!</p>
+            <p>Solusinya adalah {{ ditebak.angka }}</p>
+        </div>
+        <footer>
+            <p>{{ atribut.nama }}|{{ atribut.npm }}|{{atribut.kelas }}</p>
+        </footer>
+
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            ditebak: {
+                angka: Math.ceil(Math.random() * 10).toString(),
+                total: null
+            },
+            tebakan: {
+                angka: null,
+                salah: 0
+            },
+            atribut: {
+                nama: "Remigius",
+                npm: "9066",
+                kelas: "C"
+            }
+        },
+        methods: {
+            bandingkan() {
+                if (ditebak.angka == tebakan.angka) {
+                    won = true;
+                } else if (ditebak.angka != tebakan.angka) {
+                    if (ditebak.total != 0) {
+                        fail = true;
+                    } else
+                        lose = true;
+                }
+            }
+        }
+    });
+</script>
+
+</html>
